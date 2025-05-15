@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Backend</title>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+
+    <!-- Section to Add a New Game -->
+    <h2>Add a New Game</h2>
+    <form method="POST" action="/addGame">
+        <label for="game_title">Game Title:</label>
+        <input type="text" id="game_title" name="game_title" required>
+        <button type="submit">Add Game</button>
+    </form>
+
+    <!-- Section to Display Games and Borrowers -->
+    <h2>Games and Borrowers</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Game Title</th>
+                <th>Borrower's Name</th>
+                <th>Borrow Date</th>
+                <th>Status</th>
+                <th>Update Status</th>
+                <th>Remove Game</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for game in games %}
+            <tr>
+                <td>{{ game.title }}</td>
+                <td>
+                    {% for borrower in borrowers %}
+                        {% if borrower.borrowed_game_id == game.id %}
+                            {{ borrower.name }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for borrower in borrowers %}
+                        {% if borrower.borrowed_game_id == game.id %}
+                            {{ borrower.borrow_date.strftime('%Y-%m-%d') }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>{{ game.status }}</td>
+                <td>
+                    <!-- Update Status Form -->
+                    <form method="POST" action="/adminBackend">
+                        <input type="hidden" name="game_id" value="{{ game.id }}">
+                        <select name="status">
+                            <option value="available" {% if game.status == 'available' %}selected{% endif %}>Available</option>
+                            <option value="checked out" {% if game.status == 'checked out' %}selected{% endif %}>Checked Out</option>
+                        </select>
+                        <button type="submit">Update</button>
+                    </form>
+                </td>
+                <td>
+                    <!-- Remove Game Form -->
+                    <form method="POST" action="/removeGame">
+                        <input type="hidden" name="game_id" value="{{ game.id }}">
+                        <button type="submit" onclick="return confirm('Are you sure you want to remove this game?')">Remove</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

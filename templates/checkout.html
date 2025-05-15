@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Checkout</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='format.css') }}">
+</head>
+<body>
+<h1>Borrow A Game</h1>
+<form action="/borrow" method="POST">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br>
+
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date" required><br>
+
+    <label for="game">Choose a Game:</label>
+    <select id="game" name="game_id" required>
+        <option value="" disabled selected>Select a game</option>
+        {% for game in games %}
+        <option value="{{ game.id }}">{{ game.title }}</option>
+        {% endfor %}
+    </select><br>
+
+    <button type="submit">Submit</button>
+
+
+    <!-- Vertical Lines -->
+    <div class="lines">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+
+    <!-- Horizontal Lines -->
+    <div class="horizontal-lines">
+        <div class="horizontal-line"></div>
+        <div class="horizontal-line"></div>
+        <div class="horizontal-line"></div>
+        <div class="horizontal-line"></div>
+        <div class="horizontal-line"></div>
+    </div>
+
+</form>
+
+</body>
+</html>

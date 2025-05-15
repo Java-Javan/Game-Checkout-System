@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login</title>
+    <meta name =  "description" content = "This page will be the admin login page where the admin use can access the data base to see a list of all owned games along with there availability.">
+    <meta name="viewport" content ="width=device-width", initial-scale=1.0">
+    <link rel="stylesheet" href="/static/adminLogin.css">
+
+</head>
+<body>
+
+<h1>Login Here</h1>
+
+<form class="login-form" method="POST" action="/adminLogin">
+  <p class="login-text">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-lock fa-stack-1x"></i>
+    </span>
+  </p>
+  <input type="text" class="login-username" name="login-username" autofocus="true" required="true" placeholder="Username" />
+  <input type="password" class="login-password" name="login-password" required="true" placeholder="Password" />
+  <input type="submit" name="Login" value="Login" class="login-submit" />
+</form>
+{% if error %}
+    <p style="color: red;"> {{ error }}</p>
+{% endif %}
+
+
+</form>
+<div class="underlay-photo"></div>
+<div class="underlay-black"></div>
+
+</body>
+</html>

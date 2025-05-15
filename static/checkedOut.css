@@ -1,0 +1,15 @@
+body, html {
+    height: 100%;
+}
+
+.bg {
+
+    background-image: url("/Users/javandurand/Downloads/BoardGameCheckoutImage.avif");
+
+    height: 100%;
+
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
