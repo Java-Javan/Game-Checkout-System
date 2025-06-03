@@ -3,6 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin Backend</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        form {
+            margin: 20px 0;
+        }
+
+        label {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"], select {
+            padding: 6px;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 6px 14px;
+            font-size: 14px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f0f0f0;
+        }
+
+        td form {
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
     <h1>Admin Dashboard</h1>
@@ -17,7 +81,7 @@
 
     <!-- Section to Display Games and Borrowers -->
     <h2>Games and Borrowers</h2>
-    <table border="1">
+    <table>
         <thead>
             <tr>
                 <th>Game Title</th>
@@ -32,34 +96,20 @@
             {% for game in games %}
             <tr>
                 <td>{{ game.title }}</td>
-                <td>
-                    {% for borrower in borrowers %}
-                        {% if borrower.borrowed_game_id == game.id %}
-                            {{ borrower.name }}
-                        {% endif %}
-                    {% endfor %}
-                </td>
-                <td>
-                    {% for borrower in borrowers %}
-                        {% if borrower.borrowed_game_id == game.id %}
-                            {{ borrower.borrow_date.strftime('%Y-%m-%d') }}
-                        {% endif %}
-                    {% endfor %}
-                </td>
+                <td>{{ borrowers[game.id].name if borrowers[game.id] else '' }}</td>
+                <td>{{ borrowers[game.id].borrow_date.strftime('%Y-%m-%d') if borrowers[game.id] else '' }}</td>
                 <td>{{ game.status }}</td>
                 <td>
-                    <!-- Update Status Form -->
                     <form method="POST" action="/adminBackend">
                         <input type="hidden" name="game_id" value="{{ game.id }}">
                         <select name="status">
                             <option value="available" {% if game.status == 'available' %}selected{% endif %}>Available</option>
-                            <option value="checked out" {% if game.status == 'checked out' %}selected{% endif %}>Checked Out</option>
+                            <option value="Checked out" {% if game.status == 'Checked out' %}selected{% endif %}>Checked Out</option>
                         </select>
                         <button type="submit">Update</button>
                     </form>
                 </td>
                 <td>
-                    <!-- Remove Game Form -->
                     <form method="POST" action="/removeGame">
                         <input type="hidden" name="game_id" value="{{ game.id }}">
                         <button type="submit" onclick="return confirm('Are you sure you want to remove this game?')">Remove</button>
