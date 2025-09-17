@@ -1,3 +1,28 @@
+"""
+Game Management System
+----------------------
+
+A Flask-based web application for managing a large board game collection and tracking borrowed/available games.
+
+⚠️ Disclaimer:
+- This is for **personal use and learning purposes**.
+- The admin login currently uses a hardcoded username/password.
+- This is not secure and will be replaced with proper authentication in the future.
+
+Features (current + planned):
+- Maintain a list of games (available vs checked out).
+- Allow Friends to scan QR code to access to the site.
+- User checkout form for borrowing games.
+- Admin page with basic login, add/view/filter games.
+
+Tech Stack:
+- Flask (Python), SQLite, HTML/CSS, JavaScript, Render(Deployment)
+
+Status:
+Work in progress. Future updates will improve security and add professional-grade features.
+"""
+
+
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
